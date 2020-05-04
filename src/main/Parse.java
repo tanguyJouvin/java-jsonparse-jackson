@@ -4,6 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
+/*.
+Compiler et exécuter le code afin d'obtenir l'affichage du résultat attendu :  ./tester.sh
+
+Envoyer les modifications vers ton dépôt distant et partager le lien du fork en solution
+*/
+
 public class Parse {
 
     private final static String JSON_WEATHER_PATH = "weather.json";
@@ -14,20 +20,22 @@ public class Parse {
             // write your code here !
 
             // TODO : get the root from the file JSON_WEATHER_PATH
-            JsonNode root = null;
+            JsonNode root = objectMapper.readTree("JSON_WEATHER_PATH");
 
             // TODO : get the value of "name" attribute
-            String cityName = null;
+            String cityName = root.get("name").asText();
 
             // TODO : get the "lat" and "lon" values of the "coord"
-            Double cityLatitude = null;
-            Double cityLongitude = null;
+            Double cityLatitude = root.get("lat").asDouble();
+            Double cityLongitude = root.get("lon").asDouble();
 
             // TODO : get the "wind" attribute as an Wind object
-            Wind wind = null;
+            JsonNode wind = root.get("wind");
 
             // TODO : get the "weather" attribute as an array of Weather objects
-            Weather[] weathers = {};
+            for (JsonNode weathers : root.get("weather")) {
+                System.out.println(weathers.asText());
+            }
 
             // Don't touch this !
             System.out.printf("City name: %s%n", cityName);
