@@ -33,9 +33,7 @@ public class Parse {
             JsonNode wind = root.get("wind");
 
             // TODO : get the "weather" attribute as an array of Weather objects
-            for (JsonNode weathers : root.get("weather")) {
-                System.out.println(weathers.asText());
-            }
+            Weather[] weather = objectMapper.convertValue(root.get("weather"), Weather[].class);
 
             // Don't touch this !
             System.out.printf("City name: %s%n", cityName);
